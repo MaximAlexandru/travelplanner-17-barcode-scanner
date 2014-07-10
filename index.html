@@ -1,0 +1,631 @@
+﻿<!DOCTYPE html>
+<html>
+	<title>&nbsp;</title>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="js/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+	
+	<script src="js/bootstrap.min.js"></script>
+	 <script src="cordova.js"></script>
+     
+   
+
+		<link href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css" rel="stylesheet">
+        <script src="https://rawgithub.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
+    <script id="mobile-datepicker" src="http://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/global_includes.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/functions.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPUvXhSalW8cMp82Umq8RRIli1tb8R5rU&sensor=true"></script>
+	
+	    <script type="text/javascript" src="js/angular/angular.min.js"></script>
+		<script src="http://malsup.github.io/jquery.blockUI.js"></script>
+		<script type="text/javascript">
+		var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var dlat;
+		var dlng ; 
+		
+	
+		
+		// function getlocationcoords(){
+		 // dlat=$('.location-lat').val();
+		 // dlng = $('.location-lng').val();
+		 // alert('dest-position-'+dlat+':'+dlng);
+		// }
+	
+		function onMove(){
+			var lat=position.coords.latitude;
+			var lon=position.coords.longitude;
+			calcRoute(lat,lon);
+		}
+		function onErrorwatch(){
+			alert('Eroare gps!');
+		}
+
+		function initialize(lat,lng) {
+			  directionsDisplay = new google.maps.DirectionsRenderer();
+			   start = new google.maps.LatLng(lat,lng);
+			  var mapOptions = {
+			    zoom:15,
+			    center: start
+			  }
+			  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+			  directionsDisplay.setMap(map);
+			 
+			  calcRoute(lat,lng);
+			 
+			}
+			function calcRoute(slat,slng) {
+			    alert(slat,slng);
+				
+			  var start = new google.maps.LatLng(slat,dlng);
+			  var end = new google.maps.LatLng(dlat,dlng);
+			  var request = {
+			      origin:start,
+			      destination:end,
+			      travelMode: google.maps.TravelMode.WALKING
+			  };
+			  directionsService.route(request, function(response, status) {
+			    if (status == google.maps.DirectionsStatus.OK) {
+			      directionsDisplay.setDirections(response);
+			    }
+			  });
+			  
+			}
+			
+			 function onSuccess(position) {
+			 	
+			 	
+        initialize(position.coords.latitude,position.coords.longitude);
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('Eroare preluare coordonate ,code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+
+      
+
+		</script>
+	
+
+
+		
+		<style type="text/css">
+		.rezervation-btn{
+		    background-color: black;
+            float: right;
+            padding: 5px;
+            border-radius: 5px;
+            color:white;
+		}
+		.sendReservation{
+		    float:right!important;
+		}
+		.trei{
+		    width:32%!important;
+		    margin-right:1%!important;
+		}
+		.col-xs-7{
+		    width:100%;
+		}
+		.modal-body{
+		    padding:10px!important;
+		}
+		
+		.hasDatepicker{
+		    width:100%!important;
+		    
+		}
+		#ui-datepicker-div{
+		    background-color: grey!important;
+		   
+		}
+		#ui-datepicker-div >a{
+            color: black!important;
+           
+        }
+        .ui-state-default{
+            color:#000;
+        }
+		#map-canvas{height:460px;}
+		body{height:100%;margin:0;padding:0;}
+		html{height:100%;}
+		li.goback{
+			background:url('img/back.png') no-repeat 0% 50%;
+			background-size: 15%;
+			padding-left:40px;
+		}
+		.more_text{
+		    color:#4486F9;
+		    font-style: italic;
+		}
+		.fade.in{
+		    background-color: rgba(255,255,255,0.5);
+		}
+		.location-list{
+			width: 100%;
+			height: 200px;
+			position:relative;
+			margin-bottom:10px;
+		}
+		.cut-text{
+			display:none;
+		}
+		.all-text{
+			text-align:center;
+			
+		}
+		.location-list-text{
+			position: absolute;
+			bottom: 10px;
+			width: 80%;
+			background-color: #fff;	
+			left: 5%;
+			right: 5%;
+			display: inline-block;
+			padding-left: 5%;
+			padding-right: 5%;
+			padding-bottom: 10px;
+			padding-top: 10px;
+			color:#000;
+			font-size:14px;
+		}
+		.subcats{
+			display: none;
+			margin-top: 10px;
+			list-style: none;
+			border-bottom: 0px;
+			padding-left: 10px;
+			color: white;
+		}
+		.subcats > li {
+			border-bottom:0px!important;
+		}
+            #cont{
+            	background-color:rgba(0,0,0,0.8);
+            }
+			#wrap-header{
+				background:#32394B;
+				padding-left:0px;
+				padding-right:0px;
+				width:100%;
+				height:60px;
+			}
+		    nav{
+		    	display:none;
+		    }
+			nav ul li {
+				border-bottom: 1px solid black;
+				
+				padding:20px;
+				list-style:none;
+			}
+			nav ul li  a{
+				text-transform: none;
+				text-decoration: none;
+				color:#fff;
+				
+			}
+			
+			.col50{
+				width: 50%;
+				
+				display:inline-block
+			}
+			.col100{
+				width: 100%;
+				
+				display: inline-block;
+			}
+			.fl{
+				float:left;
+			}
+			.fr{
+				float:right;
+			}
+			.cb{
+				clear:both;
+			}
+			.menu-btn{
+				background: #000000;
+				border-radius: 10px;
+				border:none;
+				text-align: center;
+				width: auto;
+				padding: 10px;
+				float: left;
+				cursor: pointer;
+			}
+			.nav-icon{
+				width:100%;
+		
+				height: auto;
+				float:left;
+				background:#ccc;
+			}
+			.nav-wrapper{
+				width:100%;
+				margin:auto;
+				
+			}
+			.navbar-icon{
+				float:left;
+			}
+			.nav-text{
+				float:left;
+				display: inline-block;
+			
+			}
+			.nav-text h1{
+				margin:0px;
+			}
+			#menu{
+				background-color:#32394B;
+			}
+			#list_view{
+				
+				padding-left: 0px;
+				padding-right: 0px;
+				margin:0px;
+				list-style:none;
+				width:100%;
+			}
+			ul#list_view li{
+				border-bottom:rgba(0,0,0,0.2);
+				text-align: left;
+						
+				padding-top: 10px;
+				padding-bottom:10px;
+				border-bottom: 1px solid #666262;
+			}
+			a{
+				text-decoration: none;
+				color:#ccc;			}
+				#list_view li a h3{
+					text-align:left;
+					margin-bottom:10px;
+					color: #fff;
+					line-height: 1em;
+					margin:0px;
+				}
+				#list_view li a p{
+					text-align:left;
+					color: #fff;
+					line-height: 1em;
+					margin:0px;
+				}
+				#content{
+					padding:0px;
+				}
+				.button{
+					background:#000000;
+					padding:15px;
+					border-radius:10px;
+				}
+				.location-img{
+					width:35%;
+					height:100px;
+					background-size:cover;
+					float:left;
+					display:inline-block;
+					
+				}
+				.location_details{
+					padding-left: 10px;
+					width: 60%;
+					display: inline-block;
+					
+					
+				}
+				a.recomandare{
+					clear:both;
+					margin-top:10px;
+				}
+				#content-map{
+					position:absolute!important;
+					top:70px!important;
+					left:0px;
+					right:0px;
+					bottom: 10px!important;
+					padding:0;
+				}
+				#content{
+					padding:15px;
+				}
+				.eveniment{
+					width:100%;
+					margin-bottom:10px;
+				}
+				.eveniment-nume{
+					float:left;
+					width:33%;
+					background:url('img/list_image.png') no-repeat 2% 15%;
+					padding-left:20px;
+				
+				}
+				.eveniment-locatie{
+					float:left;
+					width:30%;
+					background:url('img/list_locatie.png') no-repeat 2% 15%;
+					padding-left:20px;
+					
+					
+				}
+				.eveniment-ora{
+					float:left;
+					width:15%;
+					background:url('img/ora.png') no-repeat 2% 15%;
+					padding-left:20px;
+					
+				}
+				.today-events{
+					margin-left:-15px;
+					margin-right:-15px;
+					font-size:14px;
+				}
+			
+		</style>
+	</head>
+	<body>
+		
+			<div data-role="page" id="login">
+			<!-- Header -->
+			<div data-role="header" id="wrap-header">
+			</div>
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content" >
+				<form id="form-login">
+					<label>Email</label>
+					<input type="text" id="username" name="username">
+					<label>Password</label>
+					<input type="password" id="password2" name="password2">
+					<input type="button" value="Login" id="loginbutton" onclick="validate_login()" />
+					
+					
+				</form>
+		   
+				
+			</div>
+			<!-- /content -->
+			<!-- footer -->
+			<div data-role="footer">
+				<h4>&copy; brasovtour.com</h4>
+			</div>
+			<!-- /footer -->
+		</div>
+		
+	
+		<!-- Start of first page I -->
+		<div data-role="page" id="acasa" data-theme="c">
+
+			<div data-role="header" id="wrap-header">
+			    
+				  
+				   
+			 </div>
+			 			
+			 
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content" >
+		      <div class="qr_code_img"></div>	
+			</div>
+			<!-- /content -->
+			
+			
+			<!-- footer -->
+			<div data-role="footer">
+				<h4>&copy; 2013 Your Name</h4>
+			</div>
+			<!-- /footer -->
+
+		</div>
+		<!-- /page -->
+
+
+	<div data-role="page" id="categorie">
+			<!-- Header -->
+			<div data-role="header" id="wrap-header">
+			</div>
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content">
+		         <h3 class="category-name" style="text-transform:capitalize"></h3>
+				<div class="category-locations"></div>
+			</div>
+			<!-- /content -->
+			<!-- footer -->
+			<div data-role="footer">
+				<h4>&copy; 2013 Your Name</h4>
+			</div>
+			<!-- /footer -->
+		</div>
+		
+		<!-- Start of first page I -->
+		<div data-role="page" id="location"  data-theme="c" style="min-width:100%">
+			<!-- Header -->
+			<div data-role="header" id="wrap-header"></div>
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content" id="content" class="location-content">
+			<!-- <a href="#popupPhotoPortraitxxx" data-rel="popup" data-position-to="window" class="ui-corner-all ui-shadow ui-btn-inline ui-link"class="triggerphoto" data-transition="fade" style="width:30%;margin-right:2%;display:none;" aria-haspopup="true" aria-owns="popupPhotoPortrait1" aria-expanded="false"><img src="http://www.brasovtour.com/picture_thumbs/hotel-ambient-apartament-baie.jpg" style="width:100%;" alt="#"></a>    
+			    
+			    
+			    
+			    <div data-role="popup" id="popupPhotoPortraitxxx" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" style="display:none;">
+    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img src="http://www.brasovtour.com/pictures/hotel-ambient-apartament-baie.jpg" alt="Photo portrait">
+</div> -->
+
+		                <div class="location-name"></div>
+                        <div class="location-facilities"></div>
+        				<div class="location-description"></div>
+        				<div class="location-tickets"></div>
+        				<div class="location-program"></div>
+           				<div class="location-photos"></div>
+           				<div class="location-contact"></div>
+           			
+        				<div class="cb"></div>
+        	</div>
+        	
+			<!-- /content -->
+			<!-- footer -->
+			<div data-role="footer" id="footer-wrapper">
+			</div>
+			<div  class="modal fade " style="height:85%; "id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <div class="h3_title modal-title">Adauga la travelplanner</div>
+            </div>
+           <input type="hidden" id="site_url" value="http://www.brasovtour.com/"/>
+           <input type="hidden" id="node_id" />
+            <div class="modal-body" id="rezervare_response_append"></div>
+           
+            
+        </div>
+    </div>
+</div>
+			<!-- /footer -->
+		</div>
+		<!-- /page -->
+
+	<!-- Start of first page I -->
+		<div data-role="page" id="map"  data-theme="c">
+		    <a href="#" onclick="move()">move</a>
+			<!-- Header -->
+			
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content" id="content-map" class="location-content">
+				
+				<div id="map-canvas"></div>
+				
+			</div>
+			<!-- /content -->
+			<!-- footer -->
+			
+			<!-- /footer -->
+		</div>
+		<!-- /page -->
+	
+
+	
+		
+
+
+<script type="text/javascript">
+   
+var panel=menu_init();
+
+	$(document).one('pagebeforecreate', function () {
+		
+	  login_history();
+	  $.mobile.pageContainer.prepend(panel);
+	  $("#menu").panel();
+	  $('#list-view').listview();
+	  $('#menu').trigger('create');
+	 
+	     $('a.location-link').on('click',function(){
+	    	var node_id = $(this).attr('node_id');
+	    	
+	    
+	    });
+	    
+					  
+	});
+	$('#acasa').on('pageinit',function(){
+		navbar(this);
+	    user_qr_code();
+		$('.catli').on('click',function()
+		{
+			$('.subcats').hide();
+			$(this).children('.subcats').toggle();
+		});
+		
+	   $('.catli').children('.subcats').find('.goback').on('click',function(){
+	   $(this).parent().hide();
+	   return false;
+	    });
+	
+	
+	});
+	$('#categorie').on('pageinit',function(){
+	    alert(localStorage['name']+":"+localStorage['password']+":"+localStorage['type']);
+		navbar(this);
+		$('.catli').on('click',function()
+		{
+			  $("#menu").panel('close');
+			$('.subcats').hide();
+			$(this).children('.subcats').toggle();
+		});
+		
+	   $('.catli').children('.subcats').find('.goback').on('click',function(){
+	   $(this).parent().hide();
+	   return false;
+	    });
+	    	
+	});
+	$('#location').on('pageshow', function () {
+	 
+	    populate_location(location_id);
+	   
+	   
+	  
+	  
+	});
+	$('#location').on('pageinit',function(){
+	
+		navbar(this);
+		$(this).find('.all-text').on('click',function(){
+			
+		});
+		  getfooterlocation();
+		  $( ".photopopup" ).on({
+        popupbeforeposition: function() {
+            var maxHeight = $( window ).height() - 60 + "px";
+            $( ".photopopup img" ).css( "max-height", maxHeight );
+        }
+    });
+    $("#popupPhotoPortrait1").trigger('create');
+    $('#location').find('#footer-wrapper').trigger('create');
+    $('#rezervarepopup').popup();
+    
+  
+		
+		  
+    });
+  
+
+	
+	$('#map').on('pageinit',function(){
+	    alert('destination-coords:'+dlat+":"+dlng);
+	
+		 navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		  var watchID = navigator.geolocation.watchPosition(onMove, onErrorwatch, { timeout: 15000 });
+
+	});
+	
+	
+
+	$('body').on('swiperight',function(){
+		
+			$('#menu').panel('open');
+		});
+		
+	
+   
+	
+</script>
+</body>
+</html>
+

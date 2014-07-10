@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+    <title>&nbsp;</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="js/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    
+    <script src="js/bootstrap.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="barcodescanner.js"></script>
+     <script src="js/barcode_functions.js"></script>
+   
+
+        <link href="https://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css" rel="stylesheet">
+        <script src="https://rawgithub.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
+    <script id="mobile-datepicker" src="http://rawgithub.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/global_includes.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/functions.js"></script>
+   
+        <script src="http://malsup.github.io/jquery.blockUI.js"></script>
+
+    
+
+
+        
+        <style type="text/css">
+        .rezervation-btn{
+            background-color: black;
+            float: right;
+            padding: 5px;
+            border-radius: 5px;
+            color:white;
+        }
+        .sendReservation{
+            float:right!important;
+        }
+        #ui-datepicker-div{
+            background-color: grey!important;
+           
+        }
+        #ui-datepicker-div >a{
+            color: black!important;
+           
+        }
+        .ui-state-default{
+            color:#000;
+        }
+        #map-canvas{height:460px;}
+        body{height:100%;margin:0;padding:0;}
+        html{height:100%;}
+        li.goback{
+            background:url('img/back.png') no-repeat 0% 50%;
+            background-size: 15%;
+            padding-left:40px;
+        }
+        .more_text{
+            color:#4486F9;
+            font-style: italic;
+        }
+        .fade.in{
+            background-color: rgba(255,255,255,0.5);
+        }
+        .location-list{
+            width: 100%;
+            height: 200px;
+            position:relative;
+            margin-bottom:10px;
+        }
+        .cut-text{
+            display:none;
+        }
+        .all-text{
+            text-align:center;
+            
+        }
+        .location-list-text{
+            position: absolute;
+            bottom: 10px;
+            width: 80%;
+            background-color: #fff; 
+            left: 5%;
+            right: 5%;
+            display: inline-block;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            color:#000;
+            font-size:14px;
+        }
+        .subcats{
+            display: none;
+            margin-top: 10px;
+            list-style: none;
+            border-bottom: 0px;
+            padding-left: 10px;
+            color: white;
+        }
+        .subcats > li {
+            border-bottom:0px!important;
+        }
+            #cont{
+                background-color:rgba(0,0,0,0.8);
+            }
+            #wrap-header{
+                background:#32394B;
+                padding-left:0px;
+                padding-right:0px;
+                width:100%;
+                height:60px;
+            }
+            nav{
+                display:none;
+            }
+            nav ul li {
+                border-bottom: 1px solid black;
+                
+                padding:20px;
+                list-style:none;
+            }
+            nav ul li  a{
+                text-transform: none;
+                text-decoration: none;
+                color:#fff;
+                
+            }
+            
+            .col50{
+                width: 50%;
+                
+                display:inline-block
+            }
+            .col100{
+                width: 100%;
+                
+                display: inline-block;
+            }
+            .fl{
+                float:left;
+            }
+            .fr{
+                float:right;
+            }
+            .cb{
+                clear:both;
+            }
+            .menu-btn{
+                background: #000000;
+                border-radius: 10px;
+                border:none;
+                text-align: center;
+                width: auto;
+                padding: 10px;
+                float: left;
+                cursor: pointer;
+            }
+            .nav-icon{
+                width:100%;
+        
+                height: auto;
+                float:left;
+                background:#ccc;
+            }
+            .nav-wrapper{
+                width:100%;
+                margin:auto;
+                
+            }
+            .navbar-icon{
+                float:left;
+            }
+            .nav-text{
+                float:left;
+                display: inline-block;
+            
+            }
+            .nav-text h1{
+                margin:0px;
+            }
+            #menu{
+                background-color:#32394B;
+            }
+            #list_view{
+                
+                padding-left: 0px;
+                padding-right: 0px;
+                margin:0px;
+                list-style:none;
+                width:100%;
+            }
+            ul#list_view li{
+                border-bottom:rgba(0,0,0,0.2);
+                text-align: left;
+                        
+                padding-top: 10px;
+                padding-bottom:10px;
+                border-bottom: 1px solid #666262;
+            }
+            a{
+                text-decoration: none;
+                color:#ccc;         }
+                #list_view li a h3{
+                    text-align:left;
+                    margin-bottom:10px;
+                    color: #fff;
+                    line-height: 1em;
+                    margin:0px;
+                }
+                #list_view li a p{
+                    text-align:left;
+                    color: #fff;
+                    line-height: 1em;
+                    margin:0px;
+                }
+                #content{
+                    padding:0px;
+                }
+                .button{
+                    background:#000000;
+                    padding:15px;
+                    border-radius:10px;
+                }
+                .location-img{
+                    width:35%;
+                    height:100px;
+                    background-size:cover;
+                    float:left;
+                    display:inline-block;
+                    
+                }
+                .location_details{
+                    padding-left: 10px;
+                    width: 60%;
+                    display: inline-block;
+                    
+                    
+                }
+                a.recomandare{
+                    clear:both;
+                    margin-top:10px;
+                }
+                #content-map{
+                    position:absolute!important;
+                    top:70px!important;
+                    left:0px;
+                    right:0px;
+                    bottom: 10px!important;
+                    padding:0;
+                }
+                #content{
+                    padding:15px;
+                }
+                .eveniment{
+                    width:100%;
+                    margin-bottom:10px;
+                }
+                .eveniment-nume{
+                    float:left;
+                    width:33%;
+                    background:url('img/list_image.png') no-repeat 2% 15%;
+                    padding-left:20px;
+                
+                }
+                .eveniment-locatie{
+                    float:left;
+                    width:30%;
+                    background:url('img/list_locatie.png') no-repeat 2% 15%;
+                    padding-left:20px;
+                    
+                    
+                }
+                .eveniment-ora{
+                    float:left;
+                    width:15%;
+                    background:url('img/ora.png') no-repeat 2% 15%;
+                    padding-left:20px;
+                    
+                }
+                .today-events{
+                    margin-left:-15px;
+                    margin-right:-15px;
+                    font-size:14px;
+                }
+            
+        </style>
+    </head>
+    <body>
+        
+   
+        
+    
+        <!-- Start of first page I -->
+        <div data-role="page" id="acasa" data-theme="c">
+
+            <div data-role="header" id="wrap-header">
+                
+                  
+                   
+             </div>
+                        
+             
+            <!-- /header -->
+            <!-- Content    -->
+            <div data-role="content" >
+             
+             
+                
+                    <div class="app">
+           
+           
+            <p><a href="#" class="topcoat-button" id="scan">SCAN</a></p>
+           
+        </div>
+            
+            </div>
+            <!-- /content -->
+            
+            
+            <!-- footer -->
+            <div data-role="footer">
+                <h4>&copy; 2013 Your Name</h4>
+            </div>
+            <!-- /footer -->
+
+        </div>
+        <!-- /page -->
+
+
+
+
+
+    
+        
+
+
+<script type="text/javascript">
+   
+var panel=menu_init();
+
+    $(document).one('pagebeforecreate', function () {
+     app.initialize2();
+                      
+    });
+
+</script>
+</body>
+</html>
+
