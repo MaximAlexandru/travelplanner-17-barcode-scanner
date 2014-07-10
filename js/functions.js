@@ -2,6 +2,7 @@ var contact;
 var location_id=0;
 var user_id=0;
 function check_qr(text){
+	alert(text);
 	string="check_qr="+text;
 	$.blockUI({ message: '<img src="http://brasovtour.com/mobile-app/img/busy.gif" />' });
         $.ajax({
