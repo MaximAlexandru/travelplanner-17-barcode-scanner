@@ -2,13 +2,13 @@ var contact;
 var location_id=0;
 var user_id=0;
 function check_qr(text){
-
-	string="check_qr="+text;
+	location_id = 2;
+	string="check_qr="+text+"&"+"node_id="+location_id;
 	$.blockUI({ message: '<img src="http://brasovtour.com/mobile-app/img/busy.gif" />' });
         $.ajax({
             type: 'POST',
             url: "http://www.brasovtour.com/mobile-app/ajax/ajax.php",
-   		    
+   		   
             data:  string,
             success:function(response){
            alert(response);
@@ -20,9 +20,7 @@ function check_qr(text){
 	
 	
 }
-function sendreservation(){
-	alert(serialize+$('#reservationForm').serialize());
-	
+function sendreservation(){	
 	string=$('#reservationForm').serialize();
 	$.blockUI({ message: '<img src="http://brasovtour.com/mobile-app/img/busy.gif" />' });
         $.ajax({
@@ -31,17 +29,12 @@ function sendreservation(){
    		    dataType: "json",
             data:  string,
             success:function(response){
-           
-               	
-            	
-            	$.unblockUI();
-            
-            	
+           		$.unblockUI();
 		  }
 		});
 }
 function populate_loc(){
-	alert(contact);
+	
 	$('.location-contact').empty();
 	$('.location-contact').html(contact);
 	$('.location-contact').trigger('create');
